@@ -22,5 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = "home"),
     path('introduce/', views.introduce, name = "introduce"),
+<<<<<<< HEAD
     path('profile/<int:designer_id>', views.detail, name = "detail"),
+=======
+>>>>>>> 35d38f25ae405a89056a71bd64ce2e830f3a7c84
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
