@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-from django.shortcuts import render, get_object_or_404
+
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Designer
 
 # views.py의 pk 변수명과 urls.py의 pk변수명은 같아야한다!
@@ -15,13 +15,26 @@ def detail(request, designer_id):
     detail = get_object_or_404(Designer, pk = designer_id)
     return render(request, 'detail.html', {'designer' : designer})
 
-=======
-from django.shortcuts import render
+def new(request):
+    return render(request, 'new.html')
 
-# Create your views here.
-def home(request):
-    return render(request, 'home.html')
-    
-def introduce(request):
-    return render(request, 'introduce.html')
->>>>>>> 35d38f25ae405a89056a71bd64ce2e830f3a7c84
+def create(request):
+    if request.method == 'POST':
+        post = Designer()
+        if 'image' in request.FILES:
+            post.image = request.FILES['image']
+        post.name = request.POST['name']
+        post.address = request.POST['address']
+        post.description = request.POST['description']
+
+
+        post.save()
+
+        return redirect{'detail', post.id}
+
+def delete(request, designer_id):
+    post = get_object_or_404(Designer, pk = designer_id)
+    post.delete()
+
+    return redirect('home')
+
